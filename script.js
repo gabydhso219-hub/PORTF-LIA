@@ -96,11 +96,22 @@ function showViews(){
 document.getElementById("enter").addEventListener("click",function(){
   this.classList.add("out");
   document.getElementById("page").classList.add("show");document.getElementById("clockw").classList.add("show");
+  document.getElementById("nexw").classList.add("show");
   song.volume=0;
   song.play().catch(()=>{});
   setTimeout(type,1400);
   setTimeout(showViews,1500);
+  /* Nexus értesítés: minden belépéskor feljön */
+  setTimeout(()=>document.getElementById("nexpop").classList.add("show"),1300);
 });
+
+(function(){
+  const pop=document.getElementById("nexpop"),x=document.getElementById("nexx");
+  function close(){pop.classList.add("closing");pop.classList.remove("show");setTimeout(()=>pop.classList.remove("closing"),600)}
+  x.addEventListener("click",e=>{e.stopPropagation();close()});
+  pop.addEventListener("click",e=>{if(e.target===pop)close()});
+  addEventListener("keydown",e=>{if(e.key==="Escape"&&pop.classList.contains("show"))close()});
+})();
 
 (function(){
   const NS="http://www.w3.org/2000/svg",ticks=document.getElementById("ticks");
